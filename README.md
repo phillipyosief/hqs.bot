@@ -22,11 +22,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+
 
 
 
@@ -129,33 +125,29 @@ Help command: /help or <all>
 | /wikipedia <theme>    | Show you a Wikipedia article. |
 | /checkiban <iban>  | Check if the number is verified (only German IBAN numbers). |
 | /qrcode| type /qrcode to see how to use /qrcode. |
-| /shorturl <url>    | Currently not available because the API is broken we will fix it. |
-  
+| /shorturl <url>    | Currently not available because the API is broken we will fix it. |  
 | /battle <@user> <@user>  | Battle other user. |
 | /pokemonbattle <@user> <@user>| Start a pokemonbattle. |
 | /tournament <@user> <@user> <@user> <@user> | Battle with 4 users. |
 | /coinflip   | Flip an coin. |
 | /minesweeper | Play minesweeper. |
 | /rolldice | Roll a dice. |
-
 | /tweet <text>  | See infos about a role (see permissions with /role <@role> permissions). |
-  
 | /quote | Send a quote. |
 | /addquote <quote>  | Add a quote to list. |
 | /genius <song,artist,songtext> | Send a song lyric. |
-
 | /gif <text or tags> | Send gif. |
-  
 | /karaoke <song,artist,songtext>  | Playing a song and send the lyrics. |
 | /play <song>| Play a song from YouTube. |
 | /radio | Play hqs.fm. |
-
-
-
-
-
-
-
+  
+| Command | Not available on public version |
+| ------ | ----------- |
+| /tweet  | We working to get this command working. |
+| /karaoke <song,artist,songtext>  | All music commands arent available we will fix it as soon as possible. |
+| /play <song>| All music commands arent available we will fix it as soon as possible. |
+| /radio | All music commands arent available we will fix it as soon as possible. |
+  
 
 <!-- LICENSE -->
 ## License
