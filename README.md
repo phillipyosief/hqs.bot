@@ -60,6 +60,8 @@
 [![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/philliphqs/hqs.bot/releases/)
 [![Github all releases](https://img.shields.io/github/downloads/Naereen/StrapDown.js/total.svg)](https://GitHub.com/philliphqs/hqs.bot/releases/)
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+![Discord Shield](https://discordapp.com/api/guilds/709845754663010404/widget.png?style=shield)
+![Discord Shield](https://discordapp.com/api/guilds/501793911594024960/widget.png?style=shield)
 [![Discord Bots](https://top.gg/api/widget/upvotes/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
 [![Discord Bots](https://top.gg/api/widget/lib/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
 [![Discord Bots](https://top.gg/api/widget/owner/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
@@ -182,7 +184,8 @@ Thanks to
 * [alphaSnosh](https://github.com/alphasnosh)
 * [alphaclan community](https://discord.gg/uFdVUMH)
 
-
+![Discord Banner 4](https://discordapp.com/api/guilds/709845754663010404/widget.png?style=banner4)
+![Discord Banner 4](https://discordapp.com/api/guilds/501793911594024960/widget.png?style=banner4)
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
