@@ -30,7 +30,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/philliphqs/hqs.bot/hqs.bot-rewrite/assets/logo.jpg">
-    <img src="hqs.bot-rewrite/assets/logo.jpg" alt="Logo" width="80" height="80">
+    <img src="hqs.bot-rewrite/assets/logo.jpg" alt="Logo" width="150" height="150">
   </a>
 
   <h3 align="center">hqs.bot</h3>
@@ -60,7 +60,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Commands](#roadmap)
+* [Commands](#commands)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -70,14 +70,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Website: [hqsartworks.me](https://hqsartworks.me) 
+E-Mail: [contact@hqsartworks.me](mailto:contact@hqsartworks.me)
 
 ### Built With
 
 * [discord.py](https://pypi.org/project/discord.py/)
 * [Python](https://python.org/)
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -91,7 +90,7 @@ This is an example of how to list things you need to use the software and how to
 
 
 ### Installation
- 
+### coming soon
 1. Clone the repo
 ```sh
 git clone https://github.com/philliphqs/hqs.bot.git
@@ -106,7 +105,7 @@ Linux or Mac
 ## Usage
 
 Prefix: /
-Help command: /help or <all>
+Help command: /help or /help <all>
   
 
 <!-- ROADMAP -->
