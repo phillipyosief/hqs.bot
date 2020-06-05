@@ -11,11 +11,7 @@ default = True # default token
 musicna = True # disable music
 developing = False # hqs.bot_developing
 help = False # True will disable help
-
-if selfbot == False:
-    prefix = '/'  # Command prefix
-if selfbot == True:
-    prefix = '#'  # Command prefix
+prefix = '/'
 
 
 
