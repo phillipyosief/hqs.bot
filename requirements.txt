@@ -1,0 +1,9 @@
+discord~=1.0.1
+lyricsgenius~=1.8.6
+tweepy~=3.8.0
+requests~=2.23.0
+wikipedia~=1.4.0
+aiohttp~=3.6.2
+selenium~=3.141.0
+Pillow~=7.1.2
+PyAutoGUI~=0.9.50
