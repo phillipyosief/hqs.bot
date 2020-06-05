@@ -119,14 +119,7 @@ Help command: /help or /help <all>
 | /play <song>| Play a song from YouTube. |
 | /radio | Play hqs.fm. |
   
-| Command | Not available on public version |
-| ------ | ----------- |
-| /tweet  | We working to get this command working. |
-| /karaoke <song,artist,songtext>  | All music commands arent available we will fix it as soon as possible. |
-| /play <song>| All music commands arent available we will fix it as soon as possible. |
-| /radio | All music commands arent available we will fix it as soon as possible. |
   
-
 <!-- LICENSE -->
 ## License
 
