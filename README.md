@@ -29,13 +29,8 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/philliphqs/hqs.bot/LICENSE)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/philliphqs/hqs.bot/releases/)
-[![Github all releases](https://img.shields.io/github/downloads/Naereen/StrapDown.js/total.svg)](https://GitHub.com/philliphqs/hqs.bot/releases/)
-[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-![Discord Shield](https://discordapp.com/api/guilds/709845754663010404/widget.png?style=shield)
-![Discord Shield](https://discordapp.com/api/guilds/501793911594024960/widget.png?style=shield)
-[![Discord Bots](https://top.gg/api/widget/upvotes/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
-[![Discord Bots](https://top.gg/api/widget/lib/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
-[![Discord Bots](https://top.gg/api/widget/owner/699223351138189363.svg)](https://top.gg/bot/699223351138189363)
+
+
 
 ## Table of Contents
 
