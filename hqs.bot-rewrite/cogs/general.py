@@ -2,38 +2,29 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-
-import asyncio
-import random
-import unicodedata
-import time
-import random
-import re
-from urllib.request import urlopen
 import discord
-import lyricsgenius
-import requests
-# import tenorpy
-import tweepy
-import wikipedia
 from discord.ext import commands
-import json
 import botsetup
+import errorembed
+from cog_info import colors
+import unicodedata
+unicodedata.name('\u03b1')
 
-# colors
-blue = 0x0062ff
-black = 0x000000
-yellow = 0xf5ff30
-white = 0xffffff
-green = 0x21ff55
-grey = 0x636363
-darkgrey = 0x1c1c1c
-red = 0xff2121
-purple = 0xb338ff
-pink = 0xff47e0
-lightblue = 0x4778ff
-lightgreen = 0x73ffad
-orange = 0xff9757
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
+
+watermark = 'hqs.bot / by phillip.hqs'
 
 class general(commands.Cog):
     def __init__(self, bot):
@@ -53,7 +44,7 @@ class general(commands.Cog):
 
     @feedback.error
     async def feedback_error(self, ctx, error):
-        await ctx.send(embed=botsetup.noargs)
+        await ctx.send(embed=errorembed.noargs)
 
     @commands.command()
     async def create(self, ctx, arg1, *, args):
@@ -64,7 +55,7 @@ class general(commands.Cog):
 
     @create.error
     async def create_error(self, ctx, error):
-        await ctx.send(embed=botsetup.noargs)
+        await ctx.send(embed=errorembed.noargs)
 
 
 
@@ -111,7 +102,7 @@ class general(commands.Cog):
             perm.set_footer(text='type /role help to see more')
             await ctx.send(embed=perm)
         elif arg[0].lower() == 'members':
-            await ctx.send(embed=botsetup.nota)
+            await ctx.send(embed=errorembed.nota)
             #member = discord.Embed(title=f'Role: {role.name}', color=role.color)
             #count = len(role.members)
             #all = role.members.pop(count)
@@ -121,8 +112,31 @@ class general(commands.Cog):
 
     @role.error
     async def role_error(self, ctx, error):
-        await ctx.send(embed=botsetup.norole)
+        await ctx.send(embed=errorembed.norole)
 
+    @commands.command()
+    async def report(self, ctx, *, args):
+        report = open(f'reports/{ctx.author}', 'w')
+        report.write(f'''Author: {ctx.author}\n
+Report:
+{args}''')
+
+
+
+
+
+
+
+
+
+
+    @commands.command()
+    @commands.has_role(botsetup.ownerid)
+    async def info(self, ctx):
+        for guild in self.bot.guilds:
+            print(f'Name: {guild.name}, ID: {guild.id}')
+            info = discord.Embed(title=f'{guild.name}', description=f'{guild.id}')
+            await ctx.send(embed=info)
 
     @commands.command()
     async def textchannel(self, ctx, channel: discord.TextChannel):
@@ -141,7 +155,7 @@ class general(commands.Cog):
 
     @textchannel.error
     async def textchannel_error(self, ctx, error):
-        await ctx.send(embed=botsetup.nochan)
+        await ctx.send(embed=errorembed.nochan)
 
     @commands.command()
     async def voicechannel(self, ctx, *, channel: discord.VoiceChannel):
@@ -160,14 +174,31 @@ class general(commands.Cog):
 
     @voicechannel.error
     async def voicechannel_error(self, ctx, error):
-        await ctx.send(embed=botsetup.nochan)
+        await ctx.send(embed=errorembed.nochan)
 
+    @commands.command()
+    async def user(self, ctx, target: discord.Member):
+        try:
+            userinfo = discord.Embed(title=f"Info about {target}", color=orange)
+            userinfo.add_field(name="Role", value=f"{target.top_role}", inline=True)
+            userinfo.add_field(name="Discriminator", value=f"#{target.discriminator}", inline=True)
+            userinfo.add_field(name="Role color", value=f"{target.colour}", inline=True)
+            userinfo.add_field(name="Joined on Discord", value=f"{target.joined_at}", inline=True)
+            userinfo.add_field(name="Joined server", value=f"{target.joined_at}", inline=True)
+            userinfo.add_field(name="Activity", value=f"{target.activity}", inline=True)
+            userinfo.add_field(name="Status", value=f"{target.status}", inline=True)
+            userinfo.set_thumbnail(url=f'{target.avatar_url}')
+            userinfo.set_footer(text=watermark)
+            await ctx.send(embed=userinfo)
+        except Exception as e:
+            error = discord.Embed(title='Error', description=f'````{e}```')
+            error.set_footer(text=watermark)
+            await ctx.send(embed=error)
 
-
-
-
-
-
+    @user.error
+    async def user_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send(embed=errorembed.nouser)
 
 def setup(bot):
     bot.add_cog(general(bot))

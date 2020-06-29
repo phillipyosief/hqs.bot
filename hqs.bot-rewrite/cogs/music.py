@@ -2,39 +2,30 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-
-
-
-
-
-# INFO: MUSIC FUNCTION DOESNT PLAY MUSIC ON ALL DEVICES!!!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from __future__ import unicode_literals
-
+from cog_info import colors
 import asyncio
 import time
-
 import aiohttp
 import discord
 import lyricsgenius
 import youtube_dl
 from discord.ext import commands
-
 import botsetup
+
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
 
 # genius details
 genius = lyricsgenius.Genius(
@@ -511,6 +502,10 @@ class music(commands.Cog):
                                       )
             volumeset.set_footer(text="hqs.bot ∫ by phillip.hqs")
             await ctx.send(embed=volumeset)
+
+
+
+
 
 def setup(bot):
     bot.add_cog(music(bot))

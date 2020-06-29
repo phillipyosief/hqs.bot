@@ -2,29 +2,28 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-
 import asyncio
-
 import discord
 import requests
 import wikipedia
 from discord.ext import commands
-import botsetup
+from cog_info import colors, usernames
+import discordwebhook
+import time
 
-# colors
-blue = 0x0062ff
-black = 0x000000
-yellow = 0xf5ff30
-white = 0xffffff
-green = 0x21ff55
-grey = 0x636363
-darkgrey = 0x1c1c1c
-red = 0xff2121
-purple = 0xb338ff
-pink = 0xff47e0
-lightblue = 0x4778ff
-lightgreen = 0x73ffad
-orange = 0xff9757
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
 
 watermark = 'hqs.bot / by phillip.hqs'
 
@@ -58,35 +57,6 @@ class tools(commands.Cog):
                 url='https://66.media.tumblr.com/61c8d368e2a6e53ecf048b8bbc1ef60d/tumblr_mwyo98aufM1t3hbhyo1_r1_250.gif')
             await ctx.send(embed=false)
 
-    @checkiban.error
-    async def checkiban_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(embed=botsetup.noiban)
-
-    @commands.command()
-    async def user(self, ctx, target: discord.Member):
-        try:
-            userinfo = discord.Embed(title=f"Info about {target}", color=orange)
-            userinfo.add_field(name="Role", value=f"{target.top_role}", inline=True)
-            userinfo.add_field(name="Discriminator", value=f"#{target.discriminator}", inline=True)
-            userinfo.add_field(name="Role color", value=f"{target.colour}", inline=True)
-            userinfo.add_field(name="Joined on Discord", value=f"{target.joined_at}", inline=True)
-            userinfo.add_field(name="Joined server", value=f"{target.joined_at}", inline=True)
-            userinfo.add_field(name="Activity", value=f"{target.activity}", inline=True)
-            userinfo.add_field(name="Status", value=f"{target.status}", inline=True)
-            userinfo.set_thumbnail(url=f'{target.avatar_url}')
-            userinfo.set_footer(text=watermark)
-            await ctx.send(embed=userinfo)
-        except:
-            error = discord.Embed(title='Cant find any user', description='User ```<@user>``')
-            error.set_footer(text=watermark)
-            await ctx.send(embed=error)
-
-    @user.error
-    async def user_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(embed=botsetup.nouser)
-
     @commands.command()
     async def weather(self, ctx, *, args):
         try:
@@ -96,7 +66,8 @@ class tools(commands.Cog):
             json_data = requests.get(url).json()
             city = json_data['name']
             desc = json_data['weather'][0]['description']
-            weather = discord.Embed(title=f'Weather in {city}', description=f'{desc}\n'
+            temp = json_data['weather'][0]['temperature']
+            weather = discord.Embed(title=f'Weather in {city}', description=f'{desc}, {temp}\n'
                                                                             f'', color=orange)
             weather.set_author(icon_url='https://pbs.twimg.com/profile_images/1173919481082580992/f95OeyEW_400x400.jpg',
                                name=f'OpenWeatherMap', url=url)
@@ -107,14 +78,6 @@ class tools(commands.Cog):
             nc = discord.Embed(title='Cant find your city')
             nc.set_author(icon_url='https://pbs.twimg.com/profile_images/1173919481082580992/f95OeyEW_400x400.jpg',
                           name=f'OpenWeatherMap', url=url)
-            await ctx.send(embed=nc)
-
-    @weather.error
-    async def user_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            nc = discord.Embed(title='Cant find your city')
-            nc.set_author(icon_url='https://pbs.twimg.com/profile_images/1173919481082580992/f95OeyEW_400x400.jpg',
-                          name=f'OpenWeatherMap')
             await ctx.send(embed=nc)
 
     @commands.command()
@@ -133,11 +96,36 @@ class tools(commands.Cog):
                 wiki.write(f'{get}')
                 wiki.close()
                 await ctx.send(file=discord.File('wikipedia.txt'))
-        except:
-            cantfind = discord.Embed(title='No Article', description='Cant find any article')
+        except Exception as e:
+            cantfind = discord.Embed(title='Wikipedia', description=f'```{e}```')
             cantfind.set_author(
                 icon_url=f'https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/d1/9c/8a/d19c8a38-d24e-194d-6a34-40a850752fab/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.png',
                 name=f'Wikipedia')
+            await ctx.send(embed=cantfind)
+
+    @commands.command()
+    async def survey(self, ctx, *, args):
+        try:
+            pool = discord.Embed(description=f'{args}')
+            pool.set_author(name='Survey, by phillip.hqs', url='https://hqsartworks.me',
+                            icon_url='https://p7.hiclipart.com/preview/895/850/380/logo-brand-survey.jpg')
+            pool.set_footer(text='hqs.bot')
+            reaction = await ctx.send(embed=pool)
+            await reaction.add_reaction('👍')
+            await reaction.add_reaction('👎')
+        except Exception as e:
+            cantfind = discord.Embed(description=f'Error:\n'
+                                                 f'```{e}```\n')
+            cantfind.set_footer(text=f'Report it with /report <bug>\n')
+            cantfind.set_author(name='Survey, by phillip.hqs', url='https://hqsartworks.me',
+                            icon_url='https://p7.hiclipart.com/preview/895/850/380/logo-brand-survey.jpg')
+            await ctx.send(embed=cantfind)
+
+    @commands.command()
+    async def avatar(self, ctx, target: discord.User or discord.member):
+        avatar = discord.Embed(title='Avatar:')
+        avatar.set_image(url=f'{target.avatar_url}')
+        await ctx.send(embed=avatar)
 
     @wikipedia.error
     async def wikipedia_error(self, ctx, error):
@@ -152,8 +140,18 @@ class tools(commands.Cog):
             await ctx.send(embed=noargs)
 
     @commands.command()
+    async def username_gen(self, ctx):
+        s = discord.Embed(title='Your new username is...', color=lightgreen)
+        s.set_image(url='https://cdn.mensagenscomamor.com/content/images/m000510694.gif?v=1')
+        tw = await ctx.send(embed=s)
+        await asyncio.sleep(4)
+        await tw.delete()
+        u = discord.Embed(title='Your new username is...', description=f'{usernames.username}', color=lightblue)
+        u.set_author(name='Username generator', url='https://hqsartworks.me', icon_url='https://img.pngio.com/microsoft-learning-personal-photo-png-200_200.png')
+        await ctx.send(embed=u)
+
+    @commands.command()
     async def shorturl(self, ctx, args):
-        # the tinyurl api are currently broken!
         try:
             import tinyurl
             for u in tinyurl.create(f'{args}'):
@@ -163,8 +161,14 @@ class tools(commands.Cog):
                     name='TinyURL', url='https://tinyurl.com/')
                 url.set_footer(text=watermark)
                 await ctx.send(embed=url)
-        except:
-            await ctx.send(embed=botsetup.nota)
+        except Exception as e:
+            cantfind = discord.Embed(description=f'Error:\n'
+                                                 f'```{e}```\n')
+            cantfind.set_footer(text=f'Report it with /report <bug>\n')
+            cantfind.set_author(
+                icon_url='https://images.sftcdn.net/images/t_app-logo-xl,f_auto/p/1c7edd10-99eb-11e6-8e5f-00163ec9f5fa/384804281/tinyurl-logo.png',
+                name='TinyURL', url='https://tinyurl.com/')
+            await ctx.send(embed=cantfind)
 
     @commands.command()
     @commands.has_role(501795866122649600)
@@ -190,8 +194,9 @@ class tools(commands.Cog):
                 name=f'Sending E-Mail to')
             mail.set_footer(text=watermark)
             await ctx.send(embed=mail)
-        except:
-            print('not available')
+        except Exception as e:
+            cantfind = discord.Embed(title='E-Mail', description=f'```{e}```')
+            await ctx.send(embed=cantfind)
 
     @commands.command()
     async def qrcode(self, ctx, args, *arg):
@@ -199,16 +204,16 @@ class tools(commands.Cog):
             qr = discord.Embed(title='How to use QR-Code', color=orange)
             qr.set_author(name='QR-Codes',
                           icon_url='https://www.qrcode-generator.de/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png')
-            qr.add_field(value='Twitter',   name='/qrcode <username> <twitter>', inline=True)
+            qr.add_field(value='Twitter', name='/qrcode <username> <twitter>', inline=True)
             qr.add_field(value='Instagram', name='/qrcode <username> <instagram>', inline=False)
-            qr.add_field(value='Snapchat',  name='/qrcode <username> <snapchat>', inline=True)
-            qr.add_field(value='WhatsApp',  name='/qrcode <phonenumber> <whatsapp>', inline=False)
-            qr.add_field(value='E-Mail',    name='/qrcode <email> <mail>', inline=True)
-            qr.add_field(value='SMS',       name='/qrcode <phonenumber> <sms>', inline=False)
-            qr.add_field(value='Call',      name='/qrcode <phonenumber> <tel>', inline=True)
-            qr.add_field(value='PayPal',    name='/qrcode <paypal.me/name> <paypal>', inline=False)
-            qr.add_field(value='Skype',     name='/qrcode <username> <skype>', inline=True)
-            qr.add_field(value='Reddit',    name='/qrcode <username> <reddit>', inline=False)
+            qr.add_field(value='Snapchat', name='/qrcode <username> <snapchat>', inline=True)
+            qr.add_field(value='WhatsApp', name='/qrcode <phonenumber> <whatsapp>', inline=False)
+            qr.add_field(value='E-Mail', name='/qrcode <email> <mail>', inline=True)
+            qr.add_field(value='SMS', name='/qrcode <phonenumber> <sms>', inline=False)
+            qr.add_field(value='Call', name='/qrcode <phonenumber> <tel>', inline=True)
+            qr.add_field(value='PayPal', name='/qrcode <paypal.me/name> <paypal>', inline=False)
+            qr.add_field(value='Skype', name='/qrcode <username> <skype>', inline=True)
+            qr.add_field(value='Reddit', name='/qrcode <username> <reddit>', inline=False)
             qr.add_field(value='URL(link)', name='/qrcode <url/link> <url>', inline=True)
             await ctx.send(embed=qr)
         elif arg[0].lower() == 'url':
@@ -379,6 +384,8 @@ class tools(commands.Cog):
             await ctx.send(file=discord.File('qr.png'))
 
 
+
+
     @qrcode.error
     async def qrcode_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -413,7 +420,6 @@ class tools(commands.Cog):
             qr.add_field(name='Reddit', value='/qrcode <username> <reddit>')
             qr.add_field(name='url(link)', value='/qrcode <url/link> <url>')
             await ctx.send(embed=qr)
-
 
 def setup(bot):
     bot.add_cog(tools(bot))

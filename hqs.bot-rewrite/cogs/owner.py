@@ -2,37 +2,24 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-
-import asyncio
-import random
-import unicodedata
-import time
-import random
-import re
-from urllib.request import urlopen
-import discord
-import lyricsgenius
-import requests
-# import tenorpy
-import tweepy
-import wikipedia
+from cog_info import colors
 from discord.ext import commands
-import botsetup
+import errorembed
+import discord
 
-# colors
-blue = 0x0062ff
-black = 0x000000
-yellow = 0xf5ff30
-white = 0xffffff
-green = 0x21ff55
-grey = 0x636363
-darkgrey = 0x1c1c1c
-red = 0xff2121
-purple = 0xb338ff
-pink = 0xff47e0
-lightblue = 0x4778ff
-lightgreen = 0x73ffad
-orange = 0xff9757
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
 
 watermark = "hqs.bot / by phillip.hqs"
 
@@ -46,12 +33,12 @@ class owner(commands.Cog):
         y = discord.Embed(title='Successful sending!', description=f'Your Message:\n'
                                                                    f'``{args}``\n'
                                                                    f'Channel: {channel}', color=green)
-        y.add_field(name='Your message', value=f'``{args}``')
+        y.add_field(name='Your message', value=f'``{args}``', inline=False)
         y.add_field(name='TextChannel', value=f'Name: {channel}\n'
                                               f'Category: {channel.category}\n'
                                               f'Position: {channel.position}\n'
                                               f'ID: {channel.id}\n'
-                                              f'CategoryID: {channel.category_id}\n')
+                                              f'CategoryID: {channel.category_id}\n', inline=True)
         y.set_footer(text=watermark)
         await ctx.send(embed=y)
         await channel.send(f'{args}')
@@ -59,7 +46,7 @@ class owner(commands.Cog):
     @news.error
     async def news_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
-            await ctx.send(embed=botsetup.noperm)
+            await ctx.send(embed=errorembed.noperm)
 
 def setup(bot):
     bot.add_cog(owner(bot))

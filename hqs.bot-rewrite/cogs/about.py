@@ -6,25 +6,30 @@
 import discord
 from discord.ext import commands
 import botsetup
+from cog_info import invite_text, about_text, colors
+import errorembed
 
-aboutserver_title = botsetup.aboutserver_title
-aboutserver_description = botsetup.aboutserver_description
+about_title = about_text.aboutserver_title
+about_description = about_text.aboutserver_description
 
-blue = 0x0062ff
-black = 0x000000
-yellow = 0xf5ff30
-white = 0xffffff
-green = 0x21ff55
-grey = 0x636363
-darkgrey = 0x1c1c1c
-red = 0xff2121
-purple = 0xb338ff
-pink = 0xff47e0
-lightblue = 0x4778ff
-lightgreen = 0x73ffad
-orange = 0xff9757
+invite_title = invite_text.invitetext_title
+invite_description = invite_text.invitetext_description
 
 watermark = 'hqs.bot / by phillip.hqs'
+
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
 
 class about(commands.Cog):
     def __init__(self, bot):
@@ -32,7 +37,7 @@ class about(commands.Cog):
 
     @commands.command()
     async def aboutserver(self, ctx):
-        aboutserver = discord.Embed(title=aboutserver_title, description=aboutserver_description,
+        aboutserver = discord.Embed(title=about_title, description=about_description,
                                     color=botsetup.normalcolor)
         aboutserver.set_footer(text=watermark)
         await ctx.send(embed=aboutserver)
@@ -46,10 +51,11 @@ class about(commands.Cog):
                                            f'``Scan QRCode to invite``\n'
                                            f'*by phillip.hqs*', color=lightblue)
         if botsetup.beta == True:
-            invite.set_author(name='hqs.bot_beta#1961', icon_url=botsetup.betalogo)
+            invite.set_author(name='hqs.bot_beta#1961', icon_url=botsetup.botlogo)
             invite.set_thumbnail(
                 url='https://media.discordapp.net/attachments/625231860250968094/715999013484232794/qr.png')
             await ctx.send(embed=invite)
+
         elif botsetup.beta == False:
             invite.set_author(name='hqs.bot#8761', icon_url=botsetup.botlogo)
             invite.set_thumbnail(
@@ -70,15 +76,14 @@ class about(commands.Cog):
     @createabout.error
     async def createabout_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(embed=botsetup.noargs)
+            await ctx.send(embed=errorembed.noargs)
 
     @commands.command()
-    async def about(self, ctx, target: discord.Member or discord.client):
-        send = open(f'{target}', 'r')
-        read = send.readline()
-        about = discord.Embed(title=f'About {target}', description=f'{read}', color=orange)
-        about.set_thumbnail(url=target.avatar_url)
-        await ctx.send(embed=about)
+    async def inviteserver(self, ctx):
+        inviteserver = discord.Embed(title=about_title, description=about_description,
+                                     color=botsetup.normalcolor)
+        inviteserver.set_footer(text=watermark)
+        await ctx.send(embed=inviteserver)
 
 
 

@@ -2,37 +2,25 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-
-import asyncio
-import random
-import unicodedata
-import time
-import random
-import re
-from urllib.request import urlopen
+from cog_info import colors
 import discord
-import lyricsgenius
-import requests
-# import tenorpy
-import tweepy
-import wikipedia
 from discord.ext import commands
+import errorembed
 import botsetup
 
-# colors
-blue = 0x0062ff
-black = 0x000000
-yellow = 0xf5ff30
-white = 0xffffff
-green = 0x21ff55
-grey = 0x636363
-darkgrey = 0x1c1c1c
-red = 0xff2121
-purple = 0xb338ff
-pink = 0xff47e0
-lightblue = 0x4778ff
-lightgreen = 0x73ffad
-orange = 0xff9757
+blue = colors.blue
+black = colors.black
+yellow = colors.yellow
+white = colors.white
+green = colors.green
+grey = colors.grey
+darkgrey = colors.darkgrey
+red = colors.red
+purple = colors.purple
+pink = colors.pink
+lightblue = colors.lightblue
+lightgreen = colors.lightgreen
+orange = colors.orange
 
 class help(commands.Cog):
     def __init__(self, bot):
@@ -92,6 +80,8 @@ class help(commands.Cog):
             tools.add_field(name='/user <@user>', value='See infos about a user', inline=f)
             tools.add_field(name='/role <@role>', value='See infos about a role', inline=f)
             tools.add_field(name='/role <@role> permissions', value='See permission from the role', inline=f)
+            tools.add_field(name='/textchannel <#channel>', value='See infos about a textchannel', inline=f)
+            tools.add_field(name='/voicechannel <voicechannel>', value='See infos about a voicechannel', inline=f)
             tools.add_field(name='/weather <city>', value='Check weather', inline=t)
             tools.add_field(name='/wikipedia <article>', value='Show you a Wikipedia article', inline=f)
             tools.add_field(name='/checkiban <iban>', value='Check if the number is verified (only German IBAN numbers)', inline=f)
@@ -111,10 +101,10 @@ class help(commands.Cog):
                 music.add_field(name='/karaoke <song or artist or songtext>', value='All fun commands', inline=t)
                 await ctx.send(embed=music)
             if botsetup.musicna == True:
-                await ctx.send(embed=botsetup.nota)
+                await ctx.send(embed=errorembed.nota)
         elif arg[0].lower() == 'owner':
             owner = discord.Embed(title='Owner🔐')
-            owner.add_field(name='/news <#channel> <text>', value='Send a news embed')
+            owner.add_field(name='/news <title> <description>', value='Send a embed')
             await ctx.send(embed=owner)
         elif arg[0].lower() == 'all':
             general = discord.Embed(title='General⚙', color=lightblue)
@@ -167,8 +157,6 @@ class help(commands.Cog):
                 mna = discord.Embed(title='Sorry...', description='The Music commands is currently not available\n'
                                                                   'we will fix it as soon as possible!')
                 await ctx.send(embed=mna)
-            await ctx.send(embed=about)
-            await ctx.send(embed=moderation)
         else:
             await ctx.send(embed=hlembed())
 

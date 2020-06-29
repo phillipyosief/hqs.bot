@@ -1,11 +1,13 @@
+# ----------------------------------------------#
+# hqs.bot ©                                     #
+# by phillip.hqs ∫ Thanks to alphaSnosh         #
+# ----------------------------------------------#
 from discord.ext import commands
 
 
-class commands(commands.Cog):
+class command(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-# coming soon!
-
 def setup(bot):
-    bot.add_cog(commands(bot))
+    bot.add_cog(command(bot))

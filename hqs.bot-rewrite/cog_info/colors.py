@@ -1,0 +1,13 @@
+blue = 0x0062ff
+black = 0x000000
+yellow = 0xf5ff30
+white = 0xffffff
+green = 0x21ff55
+grey = 0x636363
+darkgrey = 0x1c1c1c
+red = 0xff2121
+purple = 0xb338ff
+pink = 0xff47e0
+lightblue = 0x4778ff
+lightgreen = 0x73ffad
+orange = 0xff9757
