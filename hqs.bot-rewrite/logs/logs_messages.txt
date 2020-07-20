@@ -1,6 +1,0 @@
-Before you logging (messages, join&leave, role) read the Discord TOS!!!
-NOTE: The public (official) hqs.bot doesnt log any messages, join&leave or role
-
-Links:
-Discord developer ToS: https://discord.com/developers/docs/legal
-Discord ToS: https://discord.com/terms

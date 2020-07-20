@@ -2,164 +2,105 @@
 # hqs.bot ©                                     #
 # by phillip.hqs ∫ Thanks to alphaSnosh         #
 # ----------------------------------------------#
-from cog_info import colors
 import discord
 from discord.ext import commands
-import errorembed
-import botsetup
+from library.cog_text import help_text
+from library.cog_info import colors
+from library.icons import links
+from library.cog_text import about_text as wm
+from library.cog_text import help_text as cmd
+import setup as botsetup
 
-blue = colors.blue
-black = colors.black
-yellow = colors.yellow
-white = colors.white
-green = colors.green
-grey = colors.grey
-darkgrey = colors.darkgrey
-red = colors.red
-purple = colors.purple
-pink = colors.pink
-lightblue = colors.lightblue
-lightgreen = colors.lightgreen
-orange = colors.orange
-
-class help(commands.Cog):
+class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    async def help(self, ctx: commands.Context, *arg):
-        t = True
-        f = False
+    async def help(self, ctx, *arg):
+        f = discord.Embed(color=colors.fun)
+        f.set_author(name='Fun', url=botsetup.website, icon_url=links.giveaway_fun)
+        f.add_field(name='/genius <song,artist,lyrics>', value='Get lyrics of a song')
+        f.add_field(name='/quote', value='Get random quotes', inline=False)
+        f.add_field(name='/wyr', value='Play would you rather', inline=False)
+        f.add_field(name='/coinflip', value='Flip a coin', inline=False)
+        f.add_field(name='/minesweeper', value='Play minesweeper', inline=False)
+        f.add_field(name='/rolldice', value='Roll a dice', inline=False)
+        f.add_field(name='/ssp', value='Play scissor, stone, paper', inline=False)
+        f.add_field(name='/tournament', value='Battle 4 users', inline=False)
+        f.set_footer(text=wm.footer)
 
-        def hlembed():
-            hl = discord.Embed(title='Hilfe:', color=lightblue)
-            hl.add_field(name='FUN', value='Minigames commands and other fun commands')
-            hl.add_field(name='TOOLS', value='Commands for tools like Wikipedia')
-            hl.add_field(name='MUSIC', value='Music commands')
-            hl.add_field(name='ABOUT', value='About the bot and server')
-            hl.add_field(name='OWNER', value='Commands for the owner')
-            hl.add_field(name='GENERAL', value='General commands')
-            hl.add_field(name='MODERATION', value='Commands for the moderators')
-            hl.set_footer(text='Type /help all to see all commands')
-            return hl
+        m = discord.Embed(color=colors.moderation)
+        m.set_author(name='Moderation', url=botsetup.website, icon_url=links.team_moderation)
+        m.add_field(name='/ban <user> <reason>', value='Ban a user', inline=False)
+        m.add_field(name='/kick <user> <reason>', value='Kick a user', inline=False)
+        m.add_field(name='/clear <amount 1-100>', value='Clear messages', inline=False)
+        m.add_field(name='/logs <user>', value='View actions from staff', inline=False)
+        m.set_footer(text=wm.footer)
+
+        a = discord.Embed(color=colors.lightblue)
+        a.set_author(name='About', url=botsetup.website, icon_url=links.account_about)
+        a.add_field(name='/about <user>', value='See aboutsection of a user', inline=False)
+        a.add_field(name='/createabout <text>', value='Create a aboutsection', inline=False)
+        a.add_field(name='/invite', value='See information about this bot', inline=False)
+        a.add_field(name='/plus', value='coming soon', inline=False)
+        a.add_field(name='/report', value='Report a command', inline=False)
+        a.set_footer(text=wm.footer)
+
+        t = discord.Embed(color=colors.tools)
+        t.set_author(name='Tools', url=botsetup.website, icon_url=links.tools)
+        t.add_field(name='/avatar <user>', value='Get avatar of a user', inline=False)
+        t.add_field(name='/color <hex color>', value='See color', inline=False)
+        t.add_field(name='/qrcode', value='Type /qrcode to see how to use /qrcode', inline=False)
+        t.add_field(name='/roleinfo <role>', value='View infos about a role', inline=False)
+        t.add_field(name='/userinfo <user>', value='View infos about a user', inline=False)
+        t.add_field(name='/weather <city>', value='Get the weather', inline=False)
+        t.add_field(name='/wikipedia <article>', value='Get a wikipedia article', inline=False)
+        t.add_field(name='/survey <topic>', value='Create a survey', inline=False)
+        t.add_field(name='/shorturl <url>', value='Short a url with TinyURl')
+        t.add_field(name='/checkiban <iban>', value='Check iban')
+        t.set_footer(text=wm.footer)
+
+        mu = discord.Embed(color=colors.music)
+        mu.set_author(name='Music', url=botsetup.website, icon_url=links.music)
+        mu.add_field(name='/join', value='Join a voicechannel', inline=False)
+        mu.add_field(name='/leave', value='Leave a voicechannel', inline=False)
+        mu.add_field(name='/play <song>', value='Play a song from YouTube', inline=False)
+        mu.add_field(name='/karaoke <song>', value='Get the lyrics while playing the song', inline=False)
+        mu.add_field(name='/pause', value='Pause music', inline=False)
+        mu.add_field(name='/resume', value='Resume music', inline=False)
+        mu.add_field(name='/stop', value='Stop music', inline=False)
+        mu.add_field(name='/volume <amount 1-100>', value='Change the volume', inline=False)
+        mu.set_footer(text=wm.footer)
+
+        o = discord.Embed(color=colors.owner)
+        o.set_author(name='Owner', url=botsetup.website, icon_url=links.owner)
+        o.add_field(name='/news <#channel> <text>', value='Sending messages to channel')
+        o.set_footer(text=wm.footer)
 
         if arg == ():
-            await ctx.send(embed=hlembed())
-        elif arg[0].lower() == 'general':
-            general = discord.Embed(title='General⚙', color=lightblue)
-            general.add_field(name='/feedback <text>', value='Send feedback to the bot developer', inline=t)
-            general.add_field(name='/create <text>', value='create embed', inline=t)
-            await ctx.send(embed=general)
+            await ctx.send(embed=help_text.help_embed())
         elif arg[0].lower() == 'fun':
-            fun = discord.Embed(title='Fun🕹', color=pink)
-            fun.add_field(name='/battle <@user> <@user>', value='Battle other user', inline=t)
-            fun.add_field(name='/pokemonbattle <@user> <@user>', value='Start a pokemonbattle', inline=f)
-            fun.add_field(name='/tournament <@user> <@user> <@user> <@user>', value='Battle with 4 users', inline=t)
-            fun.add_field(name='/coinflip', value='Flip an coin', inline=f)
-            fun.add_field(name='/minesweeper', value='Play minesweeper', inline=t)
-            #fun.add_field(name='/gif <text or tags>', value='Send gif', inline=f)
-            fun.add_field(name='/rolldice', value='Roll a dice', inline=t)
-            fun.add_field(name='/tweet <text>', value='Send a tweet (@alphaclanc)', inline=f)
-            fun.add_field(name='/quote', value='Send a quote', inline=t)
-            fun.add_field(name='/addquote <quote>', value='Add a quote to list', inline=f)
-            fun.add_field(name='/genius <song,artist,songtext>', value='Send a song lyric', inline=t)
-            await ctx.send(embed=fun)
-        elif arg[0].lower() == 'moderation':
-            moderation = discord.Embed(title='Moderation🚨', color=blue)
-            moderation.add_field(name='/ban <@user>', value='Ban an user', inline=t)
-            moderation.add_field(name='/kick <@user>', value='Kick an user', inline=f)
-            moderation.add_field(name='/clear <amount>', value='Clear messages')
-            await ctx.send(embed=moderation)
-        elif arg[0].lower() == 'about':
-            about = discord.Embed(title='About👤', color=orange)
-            about.add_field(name='/about <@user>', value='See the about text', inline=f)
-            about.add_field(name='/createabout', value='Create a about text', inline=f)
-            await ctx.send(embed=about)
+            await ctx.send(embed=f)
         elif arg[0].lower() == 'tools':
-            tools = discord.Embed(title='Tools🛠', color=grey)
-            tools.add_field(name='/user <@user>', value='See infos about a user', inline=f)
-            tools.add_field(name='/role <@role>', value='See infos about a role', inline=f)
-            tools.add_field(name='/role <@role> permissions', value='See permission from the role', inline=f)
-            tools.add_field(name='/textchannel <#channel>', value='See infos about a textchannel', inline=f)
-            tools.add_field(name='/voicechannel <voicechannel>', value='See infos about a voicechannel', inline=f)
-            tools.add_field(name='/weather <city>', value='Check weather', inline=t)
-            tools.add_field(name='/wikipedia <article>', value='Show you a Wikipedia article', inline=f)
-            tools.add_field(name='/checkiban <iban>', value='Check if the number is verified (only German IBAN numbers)', inline=f)
-            tools.add_field(name='/qrcode', value='type /qrcode to see how to use /qrcode', inline=f)
-            tools.add_field(name='/shorturl <url>', value='Currently not available because the API is broken we will fix it', inline=f)
-            await ctx.send(embed=tools)
+            await ctx.send(embed=t)
         elif arg[0].lower() == 'music':
-            if botsetup.musicna == False:
-                music = discord.Embed(title='Music🎶', color=red)
-                music.add_field(name='/join', value='Join voicechannel', inline=f)
-                music.add_field(name='/leave', value='Leave the voicechannel', inline=t)
-                music.add_field(name='/pause', value='Pause music', inline=f)
-                music.add_field(name='/stop', value='Stop a music', inline=t)
-                music.add_field(name='/radio', value='Play hqsfm radio', inline=f)
-                music.add_field(name='/resume', value='Resume music', inline=t)
-                music.add_field(name='/play <song,link>', value='Play a song from YouTube', inline=f)
-                music.add_field(name='/karaoke <song or artist or songtext>', value='All fun commands', inline=t)
-                await ctx.send(embed=music)
-            if botsetup.musicna == True:
-                await ctx.send(embed=errorembed.nota)
+            await ctx.send(embed=mu)
+        elif arg[0].lower() == 'about':
+            await ctx.send(embed=a)
         elif arg[0].lower() == 'owner':
-            owner = discord.Embed(title='Owner🔐')
-            owner.add_field(name='/news <title> <description>', value='Send a embed')
-            await ctx.send(embed=owner)
+            await ctx.send(embed=o)
+        elif arg[0].lower() == 'moderation':
+            await ctx.send(embed=m)
         elif arg[0].lower() == 'all':
-            general = discord.Embed(title='General⚙', color=lightblue)
-            general.add_field(name='/feedback <text>', value='Send feedback to the bot developer', inline=t)
-            await ctx.send(embed=general)
-            fun = discord.Embed(title='Fun🕹', color=pink)
-            fun.add_field(name='/userbattle <@user> <@user>', value='Battle other user', inline=t)
-            fun.add_field(name='/pokemonbattle <@user> <@user>', value='Start a pokemonbattle', inline=f)
-            fun.add_field(name='/tournament <@user> <@user> <@user> <@user>', value='Battle with 4 users', inline=t)
-            fun.add_field(name='/coinflip', value='Flip an coin', inline=f)
-            fun.add_field(name='/minesweeper', value='Play minesweeper', inline=t)
-            fun.add_field(name='/gif <text or tags>', value='Send gif', inline=f)
-            fun.add_field(name='/rolldice', value='Roll a dice', inline=t)
-            fun.add_field(name='/tweet <text>', value='Send a tweet (@alphaclanc)', inline=f)
-            fun.add_field(name='/quote', value='Send a quote', inline=t)
-            fun.add_field(name='/addquote <quote>', value='Add a quote to list', inline=f)
-            fun.add_field(name='/genius <song,artist,songtext>', value='Send a song lyric', inline=t)
-
-            moderation = discord.Embed(title='Moderation🚨', color=blue)
-            moderation.add_field(name='/ban <@user>', value='Ban an user', inline=t)
-            moderation.add_field(name='/kick <@user>', value='Kick an user', inline=f)
-            moderation.add_field(name='/clear <amount>', value='Clear messages')
-            await ctx.send(embed=moderation)
-            about = discord.Embed(title='About👤', color=orange)
-            about.add_field(name='/about <@user>', value='See the about text', inline=f)
-            about.add_field(name='/createabout', value='Create a about text', inline=f)
-            await ctx.send(embed=about)
-            tools = discord.Embed(title='Tools🛠', color=grey)
-            tools.add_field(name='/userinfo <@user>', value='See infos about a user', inline=f)
-            tools.add_field(name='/role <@role>', value='See infos about a role', inline=f)
-            tools.add_field(name='/weather <city>', value='Check weather', inline=t)
-            tools.add_field(name='/wikipedia <theme>', value='Show you a Wikipedia article', inline=f)
-            tools.add_field(name='/checkiban <iban>', value='Check if the number is verified (only German IBAN numbers)', inline=f)
-            tools.add_field(name='/qrcode', value='type /qrcode to see how to use /qrcode', inline=f)
-            tools.add_field(name='/shorturl <url>', value='Currently not available because the API is broken we will fix it', inline=f)
-            await ctx.send(embed=tools)
-            await ctx.send(embed=fun)
-            if botsetup.musicna == False:
-                music = discord.Embed(title='Music🎶', color=red)
-                music.add_field(name='/join', value='Join voicechannel', inline=f)
-                music.add_field(name='/leave', value='Leave the voicechannel', inline=t)
-                music.add_field(name='/pause', value='Pause music', inline=f)
-                music.add_field(name='/stop', value='Stop a music', inline=t)
-                music.add_field(name='/radio', value='Play hqsfm radio', inline=f)
-                music.add_field(name='/resume', value='Resume music', inline=t)
-                music.add_field(name='/play <song,link>', value='Play a song from YouTube', inline=f)
-                music.add_field(name='/karaoke <song or artist or songtext>', value='All fun commands', inline=t)
-                await ctx.send(embed=music)
-            if botsetup.musicna == True:
-                mna = discord.Embed(title='Sorry...', description='The Music commands is currently not available\n'
-                                                                  'we will fix it as soon as possible!')
-                await ctx.send(embed=mna)
+            await ctx.send(embed=f)
+            await ctx.send(embed=t)
+            await ctx.send(embed=mu)
+            await ctx.send(embed=a)
+            await ctx.send(embed=o)
+            await ctx.send(embed=m)
         else:
-            await ctx.send(embed=hlembed())
+            await ctx.send(embed=help_text.help_embed())
 
 
 def setup(bot):
-    bot.add_cog(help(bot))
+    bot.add_cog(Help(bot))
