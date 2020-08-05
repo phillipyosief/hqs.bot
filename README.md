@@ -90,34 +90,7 @@ Help command: /help or /help <all>
 <!-- ROADMAP -->
 ## Commands
 
-| Command | Description |
-| ------ | ----------- |
-| /help  | Show all commands in categories (e.g. /help fun) see all commands with one command /help all. |
-| /feedback <text>| Send feedback to the bot developer. |
-| /ban <@user>    | Ban a user. |
-| /kick <@user>   | Kick a user. |
-| /clear <amount> | Clear messages. |
-| /info <@user>    | See infos about a user. |
-| /role <@role>  | See infos about a role (see permissions with /role <@role> permissions). |
-| /weather <city>| Check weather. |
-| /wikipedia <theme>    | Show you a Wikipedia article. |
-| /checkiban <iban>  | Check if the number is verified (only German IBAN numbers). |
-| /qrcode| type /qrcode to see how to use /qrcode. |
-| /shorturl <url>    | Currently not available because the API is broken we will fix it. |  
-| /battle <@user> <@user>  | Battle other user. |
-| /pokemonbattle <@user> <@user>| Start a pokemonbattle. |
-| /tournament <@user> <@user> <@user> <@user> | Battle with 4 users. |
-| /coinflip   | Flip an coin. |
-| /minesweeper | Play minesweeper. |
-| /rolldice | Roll a dice. |
-| /tweet <text>  | See infos about a role (see permissions with /role <@role> permissions). |
-| /quote | Send a quote. |
-| /addquote <quote>  | Add a quote to list. |
-| /genius <song,artist,songtext> | Send a song lyric. |
-| /gif <text or tags> | Send gif. |
-| /karaoke <song,artist,songtext>  | Playing a song and send the lyrics. |
-| /play <song>| Play a song from YouTube. |
-| /radio | Play hqs.fm. |
+[Commandlist link](https://hqsartworks.me/commands)
   
   
 <!-- LICENSE -->
